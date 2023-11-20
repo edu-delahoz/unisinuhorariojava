@@ -274,6 +274,11 @@ public class Login extends javax.swing.JFrame {
                 usuarioActionPerformed(evt);
             }
         });
+        usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usuarioKeyPressed(evt);
+            }
+        });
         panel_izquierdo.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 169, 303, 29));
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
@@ -295,6 +300,11 @@ public class Login extends javax.swing.JFrame {
         contraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 contraseñaActionPerformed(evt);
+            }
+        });
+        contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                contraseñaKeyPressed(evt);
             }
         });
         panel_izquierdo.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 249, 303, 32));
@@ -412,7 +422,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaMousePressed
 
     private void panel_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_loginMouseClicked
-        System.out.println("Usuario: " + usuario.getText() + " Contrasena: " + String.valueOf(contraseña.getPassword()));
+
+        String user = usuario.getText();
+        String password = String.valueOf(contraseña.getPassword());
+        
+
+        
     }//GEN-LAST:event_panel_loginMouseClicked
 
     private void contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseñaActionPerformed
@@ -420,8 +435,29 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaActionPerformed
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-        System.out.println("Usuario: " + usuario.getText() + " Contrasena: " + String.valueOf(contraseña.getPassword()));
+        
+        String user = usuario.getText();
+        String password = String.valueOf(contraseña.getPassword());
+        
+        System.out.println(user + " " +password);
+        
+
+ 
+        
+        
     }//GEN-LAST:event_loginMouseClicked
+
+    private void usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyPressed
+        if(usuario.getText().equals("Usuario de elysa")){
+            usuario.setText("");
+        }
+    }//GEN-LAST:event_usuarioKeyPressed
+
+    private void contraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaKeyPressed
+        if(String.valueOf(contraseña.getPassword()).equals("********")){
+        contraseña.setText("");
+        }
+    }//GEN-LAST:event_contraseñaKeyPressed
                   
     
     
@@ -462,37 +498,29 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private javax.swing.JPasswordField contraseña;
+    public javax.swing.JPasswordField contraseña;
     private javax.swing.JPanel exitButton;
     private javax.swing.JLabel exitButtonlabel;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel login;
     private com.login.PanelRound panelRound1;
-    private com.login.PanelRound panelRound2;
     private com.login.PanelRound panelRound3;
     private com.login.PanelRound panelRound4;
     private com.login.PanelRound panelRound5;
-    private com.login.PanelRound panelRound6;
     private com.login.PanelRound panelRound7;
     private javax.swing.JPanel panel_izquierdo;
     private com.login.PanelRound panel_login;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel titulo_contraseña;
     private javax.swing.JLabel titulo_usuario;
-    private javax.swing.JTextField usuario;
+    public javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }

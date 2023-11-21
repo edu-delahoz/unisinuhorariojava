@@ -17,41 +17,35 @@ import java.util.logging.Logger;
  */
 public class ConeccionUsuarios {
     
-    public static void main(String[] args){
-        ConeccionUsuarios conexionUsuarios = new ConeccionUsuarios();
-        conexionUsuarios.UsuarioTabla();
-        
-        
-        
-    }
     
-    public void UsuarioTabla(){
-        Dbconnectionjava coneccion_usuarios = new Dbconnectionjava();
-        String query = "SELECT * FROM Usuarios.Usuarios";
-        Connection conexion = coneccion_usuarios.estableceConexion();
-        Statement statement = null;
-        
+    public boolean verificarCredenciales(String username, String password) {
+    Dbconnectionjava coneccion_usuarios = new Dbconnectionjava();
+    Connection conexion = coneccion_usuarios.estableceConexion();
+    Statement statement = null;
+
+    try {
+        // Query para buscar al usuario por nombre de usuario y contraseña
+        String query = "SELECT * FROM Usuarios.Usuarios WHERE Usuario = '" + username + "' AND Contraseña = '" + password + "'";
+        statement = conexion.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        // Si se encuentra un resultado, las credenciales son válidas
+        return resultSet.next();
+    } catch (SQLException e) {
+        // Manejar la excepción (puedes imprimir un mensaje de error o lanzar una excepción)
+        e.printStackTrace();
+        return false;
+    } finally {
+        // Asegurarse de cerrar la conexión y el statement
         try {
-            statement = conexion.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-            
-                System.out.println(resultSet.getString(1));
+            if (statement != null) {
+                statement.close();
             }
-        } catch (Exception e) {
-            try {
-                if (statement != null) {
-                    try {
-                        statement.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ConeccionBasicas.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                coneccion_usuarios.desconectar();
-            } catch (SQLException ex) {
-                Logger.getLogger(ConeccionBasicas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            coneccion_usuarios.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConeccionUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
+}
+
 }

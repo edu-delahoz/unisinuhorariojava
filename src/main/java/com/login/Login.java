@@ -4,6 +4,7 @@
  */
 package com.login;
 
+import dbconnection.ConeccionUsuarios;
 import java.awt.Color;
 
 
@@ -48,13 +49,14 @@ public class Login extends javax.swing.JFrame {
         titulo_usuario = new javax.swing.JLabel();
         usuario = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        titulo_contraseña = new javax.swing.JLabel();
+        estado_inicioSesion = new javax.swing.JLabel();
         contraseña = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         panel_login = new com.login.PanelRound();
         login = new javax.swing.JLabel();
         titulo_usuario1 = new javax.swing.JLabel();
         titulo_usuario2 = new javax.swing.JLabel();
+        titulo_contraseña1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -161,7 +163,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelRound1.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
+        panelRound1.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, 90));
 
         panelRound5.setBackground(new java.awt.Color(0, 0, 4));
         panelRound5.setRoundBottomLeft(10);
@@ -266,7 +268,7 @@ public class Login extends javax.swing.JFrame {
                 titulo_usuarioMouseClicked(evt);
             }
         });
-        panel_izquierdo.add(titulo_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
+        panel_izquierdo.add(titulo_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, -1, -1));
 
         usuario.setBackground(new java.awt.Color(217, 217, 217));
         usuario.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
@@ -293,9 +295,9 @@ public class Login extends javax.swing.JFrame {
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         panel_izquierdo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 204, 303, 9));
 
-        titulo_contraseña.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        titulo_contraseña.setText("Contraseña:");
-        panel_izquierdo.add(titulo_contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 225, 87, -1));
+        estado_inicioSesion.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        estado_inicioSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel_izquierdo.add(estado_inicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 180, 20));
 
         contraseña.setBackground(new java.awt.Color(217, 217, 217));
         contraseña.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
@@ -356,7 +358,7 @@ public class Login extends javax.swing.JFrame {
         });
         panel_login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 40));
 
-        panel_izquierdo.add(panel_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 303, 303, 40));
+        panel_izquierdo.add(panel_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 303, 40));
 
         titulo_usuario1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         titulo_usuario1.setText("Usuario:");
@@ -364,7 +366,11 @@ public class Login extends javax.swing.JFrame {
 
         titulo_usuario2.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         titulo_usuario2.setText("No estas registrado? ");
-        panel_izquierdo.add(titulo_usuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, -1, -1));
+        panel_izquierdo.add(titulo_usuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, -1, -1));
+
+        titulo_contraseña1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        titulo_contraseña1.setText("Contraseña:");
+        panel_izquierdo.add(titulo_contraseña1, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 225, 87, -1));
 
         background.add(panel_izquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 450));
 
@@ -439,10 +445,26 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaMousePressed
 
     private void panel_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_loginMouseClicked
+            estado_inicioSesion.setText("Autenticando...");
+            String user = usuario.getText();
+            String password = String.valueOf(contraseña.getPassword());
 
-        String user = usuario.getText();
-        String password = String.valueOf(contraseña.getPassword());
-        
+            System.out.println(user + " " +password);
+
+            ConeccionUsuarios conexionUsuarios = new ConeccionUsuarios();
+            estado_inicioSesion.setText("Autenticando...");
+
+            if (conexionUsuarios.verificarCredenciales(user, password)){
+                estado_inicioSesion.setText("Autenticando...");
+                estado_inicioSesion.setText("Inicio de Sesion Exitoso!");
+                Login.this.setVisible(false);
+                Dashboard dashboard = new Dashboard();
+                dashboard.setVisible(true);
+            }else{
+                estado_inicioSesion.setText("Autenticando...");
+                estado_inicioSesion.setText("Credenciales invalidas!");
+            }
+            
 
         
     }//GEN-LAST:event_panel_loginMouseClicked
@@ -452,11 +474,27 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaActionPerformed
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-        
+        estado_inicioSesion.setText("Autenticando...");
         String user = usuario.getText();
         String password = String.valueOf(contraseña.getPassword());
-        
+
         System.out.println(user + " " +password);
+
+        ConeccionUsuarios conexionUsuarios = new ConeccionUsuarios();
+        estado_inicioSesion.setText("Autenticando...");
+
+        if (conexionUsuarios.verificarCredenciales(user, password)){
+            estado_inicioSesion.setText("Autenticando...");
+            estado_inicioSesion.setText("Inicio de Sesion Exitoso!");
+            Login.this.setVisible(false);
+            Dashboard dashboard = new Dashboard();
+            dashboard.setVisible(true);
+        }else{
+            estado_inicioSesion.setText("Autenticando...");
+            estado_inicioSesion.setText("Credenciales invalidas!");
+        }
+        
+        
         
 
  
@@ -478,10 +516,11 @@ public class Login extends javax.swing.JFrame {
 
     private void titulo_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titulo_usuarioMouseClicked
         RegistroEstudiantes RegistroEstudiantes_panel = new RegistroEstudiantes();
+        Login.this.setVisible(false);
         RegistroEstudiantes_panel.setVisible(true);
         RegistroEstudiantes_panel.setLocationRelativeTo(null);
         
-        Login.this.setVisible(false);
+        
         
         
         
@@ -527,6 +566,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     public javax.swing.JPasswordField contraseña;
+    private javax.swing.JLabel estado_inicioSesion;
     private javax.swing.JPanel exitButton;
     private javax.swing.JLabel exitButtonlabel;
     private javax.swing.JPanel header;
@@ -547,7 +587,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel panel_izquierdo;
     private com.login.PanelRound panel_login;
     private javax.swing.JLabel titulo;
-    private javax.swing.JLabel titulo_contraseña;
+    private javax.swing.JLabel titulo_contraseña1;
     private javax.swing.JLabel titulo_usuario;
     private javax.swing.JLabel titulo_usuario1;
     private javax.swing.JLabel titulo_usuario2;

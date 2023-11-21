@@ -31,7 +31,6 @@ public class GtpConectedapi {
         loginFrame.setVisible(true);
         loginFrame.setLocationRelativeTo(null);
         
-        System.out.println(Gpthorario("Cuentame un chiste en espanol ademas dime quien eres"));
  
     }
     

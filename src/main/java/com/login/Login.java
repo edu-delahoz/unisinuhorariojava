@@ -53,6 +53,8 @@ public class Login extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         panel_login = new com.login.PanelRound();
         login = new javax.swing.JLabel();
+        titulo_usuario1 = new javax.swing.JLabel();
+        titulo_usuario2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -255,9 +257,16 @@ public class Login extends javax.swing.JFrame {
         titulo.setMaximumSize(new java.awt.Dimension(115, 15));
         panel_izquierdo.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 87, 286, 26));
 
-        titulo_usuario.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        titulo_usuario.setText("Usuario:");
-        panel_izquierdo.add(titulo_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 139, -1, -1));
+        titulo_usuario.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        titulo_usuario.setForeground(new java.awt.Color(51, 51, 255));
+        titulo_usuario.setText("Registrate!");
+        titulo_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        titulo_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                titulo_usuarioMouseClicked(evt);
+            }
+        });
+        panel_izquierdo.add(titulo_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
 
         usuario.setBackground(new java.awt.Color(217, 217, 217));
         usuario.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
@@ -348,6 +357,14 @@ public class Login extends javax.swing.JFrame {
         panel_login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 40));
 
         panel_izquierdo.add(panel_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 303, 303, 40));
+
+        titulo_usuario1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        titulo_usuario1.setText("Usuario:");
+        panel_izquierdo.add(titulo_usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 139, -1, -1));
+
+        titulo_usuario2.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        titulo_usuario2.setText("No estas registrado? ");
+        panel_izquierdo.add(titulo_usuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, -1, -1));
 
         background.add(panel_izquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 450));
 
@@ -458,6 +475,17 @@ public class Login extends javax.swing.JFrame {
         contraseña.setText("");
         }
     }//GEN-LAST:event_contraseñaKeyPressed
+
+    private void titulo_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titulo_usuarioMouseClicked
+        RegistroEstudiantes RegistroEstudiantes_panel = new RegistroEstudiantes();
+        RegistroEstudiantes_panel.setVisible(true);
+        RegistroEstudiantes_panel.setLocationRelativeTo(null);
+        
+        Login.this.setVisible(false);
+        
+        
+        
+    }//GEN-LAST:event_titulo_usuarioMouseClicked
                   
     
     
@@ -521,6 +549,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel titulo_contraseña;
     private javax.swing.JLabel titulo_usuario;
+    private javax.swing.JLabel titulo_usuario1;
+    private javax.swing.JLabel titulo_usuario2;
     public javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }

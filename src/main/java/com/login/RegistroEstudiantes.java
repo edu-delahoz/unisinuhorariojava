@@ -4,6 +4,7 @@
  */
 package com.login;
 
+import dbconnection.ConeccionUsuarios;
 import java.awt.Color;
 
 
@@ -396,20 +397,25 @@ public class RegistroEstudiantes extends javax.swing.JFrame {
 
     private void panel_registerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_registerMouseClicked
 
-        String user = usuario.getText();
-        String password = String.valueOf(contraseña.getPassword());
-        String nombre = nombre_estudiante.getText();
-        String carrera = carrera_estudiante1.getText();
-        String semestre = semestre_estudiante.getText();
-        boolean todo_ok = true;
+    String user = usuario.getText();
+    String password = String.valueOf(contraseña.getPassword());
+    String nombre = nombre_estudiante.getText();
+    String carrera = carrera_estudiante1.getText();
+    String semestre = semestre_estudiante.getText();
         
-        System.out.println("Nombre del estudiante: "+nombre+ " Carrera del estudiante:" + carrera + " Semestre "
-                + semestre + " Usuario:" + user + " Contrasena: " +password);
+    System.out.println("Nombre del estudiante: "+nombre+ " Carrera dle estudiante:" + carrera + " Semestre "
+        + semestre + " Usuario:" + user + " Contrasena: " +password);
         
-        if (todo_ok){
-        estadoPeticion.setText("Registro exitoso, inicia sesion");
+    ConeccionUsuarios conxionUsuarios = new ConeccionUsuarios();
+    
+    boolean request = conxionUsuarios.agregarUsuario(user, password, nombre, carrera, semestre);
+    
+    
+    if(request){
+        estadoPeticion.setText("Registro Correcto! Inicie sesion");
+    }else{
+        estadoPeticion.setText("Ups... hubo un problema, recuerda llenar todo");
     }
-
         
 
         
@@ -426,15 +432,20 @@ public class RegistroEstudiantes extends javax.swing.JFrame {
         String nombre = nombre_estudiante.getText();
         String carrera = carrera_estudiante1.getText();
         String semestre = semestre_estudiante.getText();
-        boolean todo_ok = true;
-        
-        System.out.println("Nombre del estudiante: "+nombre+ " Carrera dle estudiante:" + carrera + " Semestre "
-                + semestre + " Usuario:" + user + " Contrasena: " +password);
-        
-        if (todo_ok){
-        estadoPeticion.setText("Registro exitoso, inicia sesion");
-    }
 
+        System.out.println("Nombre del estudiante: "+nombre+ " Carrera dle estudiante:" + carrera + " Semestre "
+            + semestre + " Usuario:" + user + " Contrasena: " +password);
+
+        ConeccionUsuarios conxionUsuarios = new ConeccionUsuarios();
+
+        boolean request = conxionUsuarios.agregarUsuario(user, password, nombre, carrera, semestre);
+
+
+        if(request){
+            estadoPeticion.setText("Registro Correcto! Inicie sesion");
+        }else{
+            estadoPeticion.setText("Ups... hubo un problema, recuerda llenar todo");
+        }
    
         
         

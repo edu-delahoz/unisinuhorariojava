@@ -4,10 +4,14 @@
  */
 package dbconnection;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,41 +20,37 @@ import java.util.logging.Logger;
  * @author eduar
  */
 public class ConeccionCcu {
-    public static void main(String[] args){
-        ConeccionCcu conexionCcu = new ConeccionCcu();
-        conexionCcu.CcuTabla();
-        
-        
-        
-    }
     
-    public void CcuTabla(){
-        Dbconnectionjava coneccion_Ccu = new Dbconnectionjava();
-        String query = "SELECT * FROM Usuarios.Usuarios";
-        Connection conexion = coneccion_Ccu.estableceConexion();
-        Statement statement = null;
-        
+    public List<String> obtenerAsignaturas() {
+        Dbconnectionjava conexionCcu = new Dbconnectionjava();
+        Connection conexion = conexionCcu.estableceConexion();
+        List<String> asignaturas = new ArrayList<>();
+
         try {
-            statement = conexion.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            String query = "SELECT Asignatura FROM Materias.Ccu";
+            PreparedStatement preparedStatement = conexion.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
-            
-                System.out.println(resultSet.getString(1));
+                String asignatura = resultSet.getString("Asignatura");
+                asignaturas.add(asignatura);
             }
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
             try {
-                if (statement != null) {
-                    try {
-                        statement.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ConeccionBasicas.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                if (conexion != null) {
+                    conexion.close();
                 }
-                coneccion_Ccu.desconectar();
             } catch (SQLException ex) {
-                Logger.getLogger(ConeccionBasicas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConeccionCcu.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
+        return asignaturas;
     }
+    
+    
+    
 }

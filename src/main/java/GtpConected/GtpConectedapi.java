@@ -37,7 +37,7 @@ public class GtpConectedapi {
        public static String Gpthorario(String message) {
         String url = "https://api.openai.com/v1/chat/completions";
         String apiKey = "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";
-        String model = "gpt-3.5-turbo-instruct"; 
+        String model = "gpt-3.5-turbo"; 
 
         try {
             
@@ -48,14 +48,14 @@ public class GtpConectedapi {
             coneccion.setRequestProperty("Content-Type", "application/json");
 
             
-            String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + message + "\"}], \"max_tokens\": " + 200 + "}";
+            String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + message + "\"}], \"max_tokens\": " + 2000 + "}";
             coneccion.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(coneccion.getOutputStream());
             writer.write(body);
             writer.flush();
             writer.close();
 
-            
+    
             BufferedReader in = new BufferedReader(new InputStreamReader(coneccion.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();

@@ -5,6 +5,7 @@
 package com.login;
 
 import dbconnection.ConeccionUsuarios;
+import dbconnection.Usuario;
 import java.awt.Color;
 
 
@@ -12,7 +13,7 @@ public class Login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     
-            
+    private Usuario usuarioActual;        
             
             
             
@@ -457,9 +458,13 @@ public class Login extends javax.swing.JFrame {
             if (conexionUsuarios.verificarCredenciales(user, password)){
                 estado_inicioSesion.setText("Autenticando...");
                 estado_inicioSesion.setText("Inicio de Sesion Exitoso!");
-                Login.this.setVisible(false);
-                Dashboard dashboard = new Dashboard();
-                dashboard.setVisible(true);
+                usuarioActual = conexionUsuarios.obtenerInfoUsuario(user, password);
+                java.awt.EventQueue.invokeLater(() -> {
+                    new Dashboard(usuarioActual).setVisible(true);
+                });
+                this.dispose();
+                
+                
             }else{
                 estado_inicioSesion.setText("Autenticando...");
                 estado_inicioSesion.setText("Credenciales invalidas!");
@@ -475,24 +480,31 @@ public class Login extends javax.swing.JFrame {
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
         estado_inicioSesion.setText("Autenticando...");
-        String user = usuario.getText();
-        String password = String.valueOf(contraseña.getPassword());
+            String user = usuario.getText();
+            String password = String.valueOf(contraseña.getPassword());
 
-        System.out.println(user + " " +password);
+            System.out.println(user + " " +password);
 
-        ConeccionUsuarios conexionUsuarios = new ConeccionUsuarios();
-        estado_inicioSesion.setText("Autenticando...");
-
-        if (conexionUsuarios.verificarCredenciales(user, password)){
+            ConeccionUsuarios conexionUsuarios = new ConeccionUsuarios();
             estado_inicioSesion.setText("Autenticando...");
-            estado_inicioSesion.setText("Inicio de Sesion Exitoso!");
-            Login.this.setVisible(false);
-            Dashboard dashboard = new Dashboard();
-            dashboard.setVisible(true);
-        }else{
-            estado_inicioSesion.setText("Autenticando...");
-            estado_inicioSesion.setText("Credenciales invalidas!");
-        }
+
+            if (conexionUsuarios.verificarCredenciales(user, password)){
+                estado_inicioSesion.setText("Autenticando...");
+                estado_inicioSesion.setText("Inicio de Sesion Exitoso!");
+                usuarioActual = conexionUsuarios.obtenerInfoUsuario(user, password);
+                java.awt.EventQueue.invokeLater(() -> {
+                    new Dashboard(usuarioActual).setVisible(true);
+                   
+                });
+                this.dispose();
+                
+                
+            }else{
+                estado_inicioSesion.setText("Autenticando...");
+                estado_inicioSesion.setText("Credenciales invalidas!");
+            }
+        
+        
         
         
         
